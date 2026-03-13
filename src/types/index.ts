@@ -16,10 +16,10 @@ export interface Substance {
 
 export interface CalcInput {
   substance: Substance;
-  mass: number;          // MТ, кг
+  mass: number;             // MТ, кг
   congestion: CongestionClass;
-  position: CloudPosition;
-  cloudType: 'gas' | 'dust'; // тип облака (газопаровоздушное или пылевоздушное)
+  sigma: number;            // степень расширения (7 газ, 4 пыль, или вручную)
+  positionMultiplier: number; // 2 — земля, 1 — воздух (или вручную)
 }
 
 export interface ZonePoint {

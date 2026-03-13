@@ -66,10 +66,11 @@ export function ZonesMap({ result, isVisible }: Props) {
           style={{ height: '100%', width: '100%' }}
         >
           <LayersControl position="topright">
-            <LayersControl.BaseLayer checked name="OpenStreetMap">
+            <LayersControl.BaseLayer checked name="Карта">
               <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+                subdomains="abcd"
               />
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Спутник (Esri)">

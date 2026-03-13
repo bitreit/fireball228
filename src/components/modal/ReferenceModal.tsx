@@ -24,7 +24,7 @@ function Row({ label, value }: { label: string; value: string }) {
 
 export function ReferenceModal({ result, onClose }: Props) {
   const { input, E, mode, flameSpeed, sigma, substanceClass } = result;
-  const { substance, mass, congestion, position, cloudType } = input;
+  const { substance, mass, congestion, positionMultiplier } = input;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
@@ -51,9 +51,9 @@ export function ReferenceModal({ result, onClose }: Props) {
             <Row label="Класс чувствительности" value={`Класс ${substanceClass} — ${SUBSTANCE_CLASS_LABELS[substanceClass].split(' — ')[1]}`} />
             <Row label="Корректировочный параметр α" value={substance.alpha.toString()} />
             <Row label="Удельная теплота сгорания E_уд" value={`${(substance.EUD / 1e6).toFixed(2)} МДж/кг`} />
-            <Row label="Масса горючего вещества M_T" value={`${mass.toLocaleString('ru')} кг`} />
-            <Row label="Тип смеси" value={cloudType === 'gas' ? 'Газо-/паровоздушная' : 'Пылевоздушная'} />
-            <Row label="Положение облака" value={position === 'ground' ? 'На поверхности земли (E × 2)' : 'В воздухе'} />
+            <Row label="Масса вещества в газообразном состоянии M_T" value={`${mass.toLocaleString('ru')} кг`} />
+            <Row label="Степень расширения σ" value={sigma.toString()} />
+            <Row label="Коэффициент положения облака" value={`${positionMultiplier} (E × ${positionMultiplier})`} />
             <Row label="Класс загроможденности" value={CONGESTION_LABELS[congestion].short} />
           </div>
 
