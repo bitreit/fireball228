@@ -12,6 +12,7 @@ export interface Substance {
   EUD: number;         // удельная теплота сгорания, Дж/кг
   CNKPR?: number;      // НКПР, % об. (для справки)
   formula?: string;
+  sigma?: number;      // степень расширения продуктов сгорания
 }
 
 export interface CalcInput {

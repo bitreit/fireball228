@@ -4,6 +4,7 @@ import { useStore } from '../../store/useStore';
 import { SUBSTANCES, SUBSTANCE_CLASS_LABELS, CONGESTION_LABELS } from '../../data/substances';
 import type { Substance } from '../../types';
 import { ReferenceModal } from '../modal/ReferenceModal';
+import { SigmaRefModal } from '../modal/SigmaRefModal';
 
 const CLASS_COLORS: Record<number, string> = {
   1: 'text-red-400 bg-red-400/10 border-red-400/30',
@@ -93,6 +94,7 @@ export function InputPanel() {
   const [search, setSearch] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showRef, setShowRef] = useState(false);
+  const [showSigmaRef, setShowSigmaRef] = useState(false);
 
   const filtered = SUBSTANCES.filter(s =>
     s.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -183,13 +185,23 @@ export function InputPanel() {
 
         {/* Степень расширения σ */}
         <div>
-          <NumInput
-            label="Степень расширения продуктов сгорания σ"
-            value={sigma} onChange={setSigma}
-            min={1} max={20} step={0.5} unit=""
-          />
-          <div className="mt-2">
-            <RefTable title="Типовые значения σ" rows={SIGMA_REF.map(r => ({ label: r.label, value: r.value }))} />
+          <label className="block font-medium text-slate-400 mb-1.5" style={{ fontSize: 13 }}>
+            Степень расширения продуктов сгорания σ
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="number" min={1} max={20} step={0.5} value={sigma}
+              onChange={e => setSigma(Number(e.target.value))}
+              style={{ fontSize: 14 }}
+              className="flex-1 px-3 py-2 rounded-lg bg-slate-800/60 border border-slate-700 focus:border-blue-500 focus:outline-none text-slate-200 transition-colors"
+            />
+            <button
+              onClick={() => setShowSigmaRef(true)}
+              title="Открыть справочник σ"
+              className="shrink-0 w-9 h-9 flex items-center justify-center rounded-lg bg-slate-800 border border-slate-700 hover:border-blue-500 hover:text-blue-400 text-slate-500 transition-colors"
+            >
+              <BookOpen className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
@@ -254,6 +266,7 @@ export function InputPanel() {
       </div>
 
       {showRef && result && <ReferenceModal result={result} onClose={() => setShowRef(false)} />}
+      {showSigmaRef && <SigmaRefModal onClose={() => setShowSigmaRef(false)} onSelect={v => setSigma(v)} />}
     </aside>
   );
 }
